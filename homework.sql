@@ -1,81 +1,65 @@
--- 1.Adim --
-CREATE TABLE musteri(
-	  musteri_no int ,
-      isim  varchar(50)NOT NULL CHECK(isim <> ''),
-      yas int CHECK(yas > 18),
-      cinsiyet char(1),
-      gelir real,
-      meslek varchar(20),
-      sehir varchar(20),
-	  constraint musteri_pk PRIMARY KEY(musteri_no)
-);
-	
-	SELECT * FROM musteri;
-	
--- 2/3.Adim	--
-
-INSERT INTO musteri VALUES (100,'ALİ', 35, 'E', 2500, 'MÜHENDİS',  'İSTANBUL');
-INSERT INTO musteri VALUES(101,'BURAK', 25, 'E', 3500, 'MİMAR',   'İZMİR');
-INSERT INTO musteri VALUES(102,'CEYHUN', 45, 'E', 2000, 'MÜHENDİS',  'ANKARA');
-INSERT INTO musteri VALUES(103,'DEMET', 30, 'K', 3000, 'ÖĞRETMEN',  'ANKARA');
-INSERT INTO musteri VALUES(104,'FERHAT', 40, 'E', 2500, 'MİMAR',   'İZMİR');
-INSERT INTO musteri VALUES(105,'GALİP', 55, 'E', 4000, 'ÖĞRETMEN',  'İSTANBUL');
-INSERT INTO musteri VALUES(106,'KÖKSAL', 25, 'E', 2000, 'AVUKAT',   'İZMİR');
-INSERT INTO musteri VALUES(107,'LEYLA', 60, 'K', 2500, 'MİMAR',   'İSTANBUL');
-INSERT INTO musteri VALUES(108,'MELEK', 30, 'K', 2500, 'ÖĞRETMEN',  'İSTANBUL');
-INSERT INTO musteri VALUES(109,'JALE',  40, 'K', 6000, 'İŞLETMECİ', 'ANKARA');
-INSERT INTO musteri VALUES(110,'TEKİN', 45, 'E', 2000, 'AVUKAT',   'ANKARA');
-INSERT INTO musteri VALUES(111,'SAMET', 20, 'E', 3000, 'MİMAR',   'İSTANBUL');
-INSERT INTO musteri VALUES(112,'ŞULE',  20, 'K', 4500, 'ÖĞRETMEN',  'İSTANBUL');
-INSERT INTO musteri VALUES(113,'VELİ',  40, 'E', 2500, 'ÖĞRETMEN',  'İZMİR');
-INSERT INTO musteri VALUES(114,'ZEYNEP', 50, 'K', 3500, 'TESİSATÇI', 'İZMİR');
-INSERT INTO musteri VALUES(115,'ARDA',  55, 'E', 2000, 'KUAFÖR',   'İZMİR');
-INSERT INTO musteri VALUES(116,'MELİS', 30, 'K', 3000, 'KUAFÖR',   'ANKARA');
-
--- 4.Adim --
-
-	SELECT * FROM musteri;
-	
--- 5.Adim --
-
-	SELECT isim,meslek FROM musteri;
-	
--- 6.Adim --
-
-CREATE TABLE sehirler(
-
-	alan_kodu int Primary Key,
-	isim varchar(30) NOT NULL,
-	nufus real
+-- 1. Step --
+CREATE TABLE customer(
+	  customer_no int,
+      name varchar(50) NOT NULL CHECK(name <> ''),
+      age int CHECK(age > 18),
+      gender char(1),
+      income real,
+      occupation varchar(20),
+      city varchar(20),
+	  constraint customer_pk PRIMARY KEY(customer_no)
 );
 
+SELECT * FROM customer;
 
--- 7.Adim --
+-- 2/3. Step --
 
-CREATE TABLE tedarikciler3 (
-	tedarikci_id int Primary Key,
-	tedarikci_ismi varchar(20),
-	iletisim_ismi varchar(20) Unique
+INSERT INTO customer VALUES (100, 'ALİ', 35, 'M', 2500, 'ENGINEER', 'ISTANBUL');
+INSERT INTO customer VALUES (101, 'BURAK', 25, 'M', 3500, 'ARCHITECT', 'IZMIR');
+INSERT INTO customer VALUES (102, 'CEYHUN', 45, 'M', 2000, 'ENGINEER', 'ANKARA');
+INSERT INTO customer VALUES (103, 'DEMET', 30, 'F', 3000, 'TEACHER', 'ANKARA');
+INSERT INTO customer VALUES (104, 'FERHAT', 40, 'M', 2500, 'ARCHITECT', 'IZMIR');
+INSERT INTO customer VALUES (105, 'GALİP', 55, 'M', 4000, 'TEACHER', 'ISTANBUL');
+INSERT INTO customer VALUES (106, 'KÖKSAL', 25, 'M', 2000, 'LAWYER', 'IZMIR');
+INSERT INTO customer VALUES (107, 'LEYLA', 60, 'F', 2500, 'ARCHITECT', 'ISTANBUL');
+INSERT INTO customer VALUES (108, 'MELEK', 30, 'F', 2500, 'TEACHER', 'ISTANBUL');
+INSERT INTO customer VALUES (109, 'JALE', 40, 'F', 6000, 'BUSINESSMAN', 'ANKARA');
+INSERT INTO customer VALUES (110, 'TEKİN', 45, 'M', 2000, 'LAWYER', 'ANKARA');
+INSERT INTO customer VALUES (111, 'SAMET', 20, 'M', 3000, 'ARCHITECT', 'ISTANBUL');
+INSERT INTO customer VALUES (112, 'ŞULE', 20, 'F', 4500, 'TEACHER', 'ISTANBUL');
+INSERT INTO customer VALUES (113, 'VELİ', 40, 'M', 2500, 'TEACHER', 'IZMIR');
+INSERT INTO customer VALUES (114, 'ZEYNEP', 50, 'F', 3500, 'PLUMBER', 'IZMIR');
+INSERT INTO customer VALUES (115, 'ARDA', 55, 'M', 2000, 'HAIRDRESSER', 'IZMIR');
+INSERT INTO customer VALUES (116, 'MELİS', 30, 'F', 3000, 'HAIRDRESSER', 'ANKARA');
+
+-- 4. Step --
+
+SELECT * FROM customer;
+
+-- 5. Step --
+
+SELECT name, occupation FROM customer;
+
+-- 6. Step --
+
+CREATE TABLE cities(
+	area_code int PRIMARY KEY,
+	name varchar(30) NOT NULL,
+	population real
 );
 
+-- 7. Step --
 
-CREATE TABLE urunler (
-	tedarikci_id int,
-	urun_id int,
-	CONSTRAINT id_pk Foreign Key(tedarikci_id) REFERENCES tedarikciler3(tedarikci_id)
+CREATE TABLE suppliers3 (
+	supplier_id int PRIMARY KEY,
+	supplier_name varchar(20),
+	contact_name varchar(20) UNIQUE
 );
 
-SELECT * FROM urunler;
+CREATE TABLE products (
+	supplier_id int,
+	product_id int,
+	CONSTRAINT id_pk FOREIGN KEY (supplier_id) REFERENCES suppliers3(supplier_id)
+);
 
-
-
-
-
-
-
-
-
-
-
-
-
+SELECT * FROM products;
